@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--从屏幕右边开始向左进入，先快后慢动态效果，进入某个界面  -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="300"
+    android:fromXDelta="100%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:startOffset="200"
+    android:toXDelta="0%p" />

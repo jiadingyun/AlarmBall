@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 从底边进入，先快后慢 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+	<translate
+    	android:duration="300"
+    	android:fromYDelta="200%p"
+    	android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    	android:startOffset="200"
+    	android:toYDelta="0%p" />
+</set>

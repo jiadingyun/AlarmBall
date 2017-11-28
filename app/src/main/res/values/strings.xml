@@ -1,0 +1,84 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<resources>
+
+    <string name="app_name">报警球移动客户端</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="company">上海大乘电气科技有限公司</string>
+    <string name="downnumber_name">设定后台手机号</string>
+    <string name="balldownhint">输入后台手机号</string>
+
+    <string name="balltel">报警球手机号:</string>
+    <string name="ballpos">报警球位置:</string>
+    <string name="ballstate">报警球状态:</string>
+    <string name="ballhint">未选择</string>
+    <string name="ballinfo">报警球列表</string>
+    <string name="downnumber">设置后台号码</string>
+    <string name="setdistance">设置报警距离</string>
+    <string name="queryballinfo">查询报警球信息</string>
+    <string name="opendet">打开探头</string>
+    <string name="closedet">关闭探头</string>
+    <string name="notchoiceyet">未选择</string>
+    <string name="chooseballfirst">请先选择报警球</string>
+    <string name="meter">米</string>
+    <string name="distanceoutofrange">有效报警距离为1–8米,请重新设定</string>
+    <string name="afterdownnumber">后台:</string>
+    <string name="aftersetdistance">报警距离:</string>
+    <string name="downnumberpopupbutton">下装后台</string>
+    <string name="setdistancepopupbutton">发送设置</string>
+    <string name="onlysetbutton">仅设定</string>
+    <string name="titlesetdistance">设置报警距离（米）</string>
+
+    <string name="balltelsim">手机号</string>
+    <string name="ballpossim">位置</string>
+    <string name="ballstatesim">状态</string>
+    <string name="balldistancesim">报警距离（米）</string>
+    <string name="menumodify">修改</string>
+    <string name="menudelete">删除</string>
+    <string name="modifypopuptitle">修改报警球信息</string>
+    <string name="buttonmodify">修改</string>
+    <string name="buttonback">返回</string>
+    <string name="buttonaddball">添加</string>
+    <string name="menuaddball">添加报警球</string>
+    <string name="menudeletesome">批量删除</string>
+    <string name="toastinputinfo">请输入报警球号码和位置</string>
+    <string name="ballstatenormal">安全</string>
+    <string name="ballexist">此号码报警球已存在</string>
+
+    <string name="setballtel">报警球手机号:</string>
+    <string name="setballpos">报警球位置:</string>
+
+    <string name="smssendsuccess">短信发送成功</string>
+    <string name="smssendfail">短信发送失败</string>
+
+    <string name="histroy">历史数据</string>
+
+    <string name="sendtab">已发送</string>
+    <string name="receivetab">已接收</string>
+    <string name="alarmtab">报警信息</string>
+
+    <string name="sendtime">发送时间</string>
+    <string name="sendnum">报警球号码</string>
+    <string name="sendtext">指令内容</string>
+    <string name="sendballpos">位置</string>
+    <string name="receivetime">接收时间</string>
+    <string name="receivetext">短信内容</string>
+    <string name="alarmtext">报警类型</string>
+    <string name="receivenum">报警球号码</string>
+    <string name="receiveballpos">位置</string>
+
+    <string name="startdate">起始日期</string>
+    <string name="enddate">结束日期</string>
+
+    <string name="alarmtimes">报警次数</string>
+    <string name="balldistance">报警距离</string>
+    <string name="happentime">时间</string>
+    <string name="happenthing">操作或反馈</string>
+
+    <string name="ballinfoactivity">报警球列表</string>
+    <string name="balldetailactivity">详细信息</string>
+    <string name="chooseballinfo">选中报警球信息</string>
+    <string name="dochoice">操作选择</string>
+
+
+</resources>

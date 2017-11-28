@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@color/candyblue"> 
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/menuaddball"
+        android:textColor="@color/white"/>
+    <View  
+    android:layout_width="fill_parent"  
+    android:layout_height="2dp"  
+    android:background="@color/candygreen"  
+	/>  
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:layout_marginTop="5dp">
+        <TextView 
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="2"
+        	android:gravity="center_vertical|right"
+        	android:textSize="15sp"
+        	android:textColor="@color/white"
+        	android:text="@string/balltelsim"/>
+    	<EditText 
+            android:id="@+id/setballtel"
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:inputType="phone"
+        	android:layout_marginLeft="5dp"/>
+    	<Button 
+    	    android:id="@+id/opencontact"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:layout_weight="2"
+    	    android:background="@drawable/contact_change"
+    	    android:layout_gravity="center"
+    	    android:layout_marginRight="10dp" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+    	<TextView 
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="4"
+        	android:gravity="center_vertical|right"
+        	android:textSize="15sp"
+        	android:textColor="@color/white"
+        	android:text="@string/ballpossim"/>
+    	<EditText 
+            android:id="@+id/setballpos"
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="5dp"
+        	android:layout_marginRight="10dp"
+        	android:maxLength="10"
+        	android:inputType="none"/>
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/candyblue"
+        style="?android:attr/buttonBarButtonStyle" >
+    	<Button 
+    	    android:id="@+id/okButton"
+    	    style="?android:attr/borderlessButtonStyle"
+            android:layout_width="fill_parent"
+        	android:layout_height="50dp"
+        	android:layout_weight="1"
+        	android:gravity="center"
+        	android:background="@drawable/candygreen_button_change"
+        	android:text="@string/buttonaddball" />
+    	<View  
+    		android:layout_width="2dp"  
+    		android:layout_height="fill_parent"  
+    		android:background="@color/candyblue"  
+		/>  
+    	<Button 
+    	    android:id="@+id/cancelButton"
+    	    style="?android:attr/borderlessButtonStyle"
+            android:layout_width="fill_parent"
+        	android:layout_height="50dp"
+        	android:layout_weight="1"
+        	android:gravity="center"
+        	android:background="@drawable/candygreen_button_change"
+        	android:text="@string/buttonback" />
+    </LinearLayout>
+
+
+</LinearLayout>

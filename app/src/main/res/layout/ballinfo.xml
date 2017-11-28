@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/candyblue">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/backward_change" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/ballinfoactivity"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/candyblue">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="450dp"
+                    android:layout_height="30dp"
+                    android:background="@color/candygreen"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="@string/ballpossim"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="@string/ballstatesim"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="@string/balldistancesim"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@string/balltelsim"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/ballinfolist"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:divider="@color/white"
+                    android:dividerHeight="2dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/addBallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/addball_change" />
+    </FrameLayout>
+</LinearLayout>
