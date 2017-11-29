@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/white">
     <FrameLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white">
         <ImageView
@@ -18,7 +19,7 @@
             android:layout_marginBottom="3dp"
             android:src="@drawable/alarmball"/>
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:textColor="@color/black"
@@ -27,15 +28,15 @@
             android:text="@string/app_name" />
     </FrameLayout >
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0.8dp"
         android:background="@color/gray"/>
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/titlegray">
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/chooseballinfo"
             android:layout_margin="5dp"
@@ -43,259 +44,296 @@
             android:textColor="@color/gray"/>
     </TableRow>
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0.8dp"
         android:background="@color/gray"/>
+
     <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:layout_weight="3">
-        <TableRow
-            android:layout_weight="1" >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TableRow android:layout_weight="1">
+
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:text="@string/balltel"
-                android:gravity="center_vertical"/>
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/balltel" />
+
             <TextView
                 android:id="@+id/balltel"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:hint="@string/ballhint"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:hint="@string/ballhint" />
         </TableRow>
+
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/gray"/>
-        <TableRow
-            android:layout_weight="1">
+            android:background="@color/gray" />
+
+        <TableRow android:layout_weight="1">
+
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:text="@string/ballpos"
-                android:gravity="center_vertical"/>
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/ballpos" />
+
             <TextView
                 android:id="@+id/ballpos"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:hint="@string/ballhint"
-                android:gravity="center" />
+                android:gravity="center"
+                android:hint="@string/ballhint" />
         </TableRow>
+
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/gray"/>
-        <TableRow
-            android:layout_weight="1">
+            android:background="@color/gray" />
+
+        <TableRow android:layout_weight="1">
+
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:text="@string/ballstate"
-                android:gravity="center_vertical" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/ballstate" />
+
             <TextView
                 android:id="@+id/ballstate"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:hint="@string/ballhint"
-                android:gravity="center" />
+                android:gravity="center"
+                android:hint="@string/ballhint" />
         </TableRow>
 
     </TableLayout>
 
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
         <TableLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TableRow
-                android:layout_weight="1">
+            android:orientation="horizontal">
+
+            <TableRow android:layout_weight="1">
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
+                    <!--解决button覆盖TextView的方法
+                        1、Button中设置：android:stateListAnimator="@null"
+                        2、TextView中设置：android:elevation="10dp"
+                        -->
                     <Button
                         android:id="@+id/ballinfo"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@drawable/ballinfo_change"/>
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/ballinfo"
-                        android:textColor="@color/white"
+                        android:elevation="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/ballinfo"
+                        android:textColor="@color/white" />
+
+
                     <ImageView
+                        android:elevation="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
                         android:layout_gravity="right|center_vertical"
-                        android:src="@drawable/toward"/>
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/toward" />
                 </FrameLayout>
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
+
                     <Button
                         android:id="@+id/downnumber"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@drawable/downnumber_change"
-                        android:onClick="downnumber"/>
+                        android:stateListAnimator="@null"
+                        android:onClick="downnumber" />
+
                     <TextView
                         android:id="@+id/downnumbertext"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/downnumber"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/downnumber"
+                        android:textColor="@color/white" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
                         android:layout_gravity="right|center_vertical"
-                        android:src="@drawable/toward"/>
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/toward" />
                 </FrameLayout>
             </TableRow>
-            <TableRow
-                android:layout_weight="1">
+
+            <TableRow android:layout_weight="1">
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_weight="1">
+
                     <Button
                         android:id="@+id/setdistance"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@drawable/setdistance_change"
-                        android:onClick="setdistance"/>
+                        android:stateListAnimator="@null"
+                        android:onClick="setdistance" />
+
                     <TextView
                         android:id="@+id/setdistancetext"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/setdistance"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/setdistance"
+                        android:textColor="@color/white" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
                         android:layout_gravity="right|center_vertical"
-                        android:src="@drawable/toward"/>
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/toward"
+                        tools:ignore="RtlHardcoded" />
                 </FrameLayout>
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
+
                     <Button
                         android:id="@+id/queryballinfo"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/queryballinfo_change"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/queryballinfo_change"
+                        android:stateListAnimator="@null" />
+
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/queryballinfo"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/queryballinfo"
+                        android:textColor="@color/white" />
                 </FrameLayout>
             </TableRow>
-            <TableRow
-                android:layout_weight="1">
+
+            <TableRow android:layout_weight="1">
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_weight="1">
+
                     <Button
                         android:id="@+id/opendet"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/opendet_change"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/opendet_change"
+                        android:stateListAnimator="@null"/>
+
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/opendet"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/opendet"
+                        android:textColor="@color/white" />
                 </FrameLayout>
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_weight="1">
+
                     <Button
                         android:id="@+id/closedet"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/closedet_change"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/closedet_change"
+                        android:stateListAnimator="@null" />
+
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/closedet"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/closedet"
+                        android:textColor="@color/white" />
                 </FrameLayout>
             </TableRow>
-            <TableRow
-                android:layout_weight="1">
+
+            <TableRow android:layout_weight="1">
+
                 <FrameLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
+
                     <Button
                         android:id="@+id/histroyButton"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/hisinfo_changed"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/hisinfo_changed"
+                        android:stateListAnimator="@null" />
+
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:text="@string/histroy"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
                         android:gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="15dp"/>
+                        android:text="@string/histroy"
+                        android:textColor="@color/white" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
                         android:layout_gravity="right|center_vertical"
-                        android:src="@drawable/toward"/>
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/toward"
+                        tools:ignore="RtlHardcoded" />
                 </FrameLayout>
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:alpha="0">
-                    <Button
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" />
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"/>
-                </FrameLayout>
+
             </TableRow>
         </TableLayout>
     </ScrollView>
