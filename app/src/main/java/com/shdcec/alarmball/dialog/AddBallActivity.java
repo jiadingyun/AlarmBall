@@ -86,12 +86,13 @@ public class AddBallActivity extends Activity {
                 ballTelString = ballTelEditText.getText().toString();
                 ballPosString = ballPosEditText.getText().toString();
                 //传回给BallInfoActivity
-                Intent intent = getIntent();
+//                Intent intent = getIntent();
+                Intent intent = new Intent(); //这里创建一个空的Intent即可
                 intent.putExtra(EXTRA_BALLTEL, ballTelString);
                 intent.putExtra(EXTRA_BALLPOS, ballPosString);
-                AddBallActivity.this.setResult(RESULT_BALL_INFO_ACTIVITY, intent);
+                setResult(RESULT_BALL_INFO_ACTIVITY, intent);
                 //关闭窗口
-                AddBallActivity.this.finish();
+                finish();
             }
         });
 		/*
@@ -102,7 +103,7 @@ public class AddBallActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //关闭窗口
-                AddBallActivity.this.finish();
+                finish();
             }
         });
     }

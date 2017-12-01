@@ -4,6 +4,7 @@ package com.shdcec.alarmball;
 import java.util.ArrayList;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,12 +30,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shdcec.alarmball.ball.Ball;
+import com.shdcec.alarmball.data.BallInfoDb;
+import com.shdcec.alarmball.data.DBOpenHelper;
 //import com.shdcec.alarmball.data.BallInfoDb;
 //import com.shdcec.alarmball.data.DBOpenHelper;
 //import com.shdcec.alarmball.phone.SendSms;
 
 public class MainActivity extends Activity {
-    private final static String DB_NAME = "AlarmBall.db3";                        //数据库名称
+    private final static String DB_NAME = "AlarmBall.db";                        //数据库名称
     private final static int OLD_VERSION = 1;                                     //数据库版本
     private final static int TOAST_DURATION = 5000;                          //5秒Toast
     private final static int LONG_TOAST_DURATION = 8000;                          //8秒Toast
@@ -60,10 +63,10 @@ public class MainActivity extends Activity {
     private ArrayList<Map<String, String>> listItems;   //符合要求数据库记录
     private Intent sendIntent;                          //用于启动BroadcastReceiver监听短信发送状态
     private Ball chooseBall;                            //选中的报警球对象
-//    private DBOpenHelper dbHelper;
-//    private BallInfoDb ballInfoDb;
+    private DBOpenHelper dbHelper;
+    private BallInfoDb ballInfoDb;
 //    private SendSms sendSms = new SendSms();
-    private SharedPreferences preferences;              //启动次数
+    private SharedPreferences preferences;              //记录共享参数
     private SharedPreferences.Editor editor;
     private SMSMonitor sMonitor;
     //    private UpdateManager mUpdateManager;
@@ -96,25 +99,25 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         setContentView(R.layout.activity_main);
         //统计启动次数
-        preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+        preferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
         startTimes = preferences.getInt(START_TIMES, 0);
         editor.putInt(START_TIMES, ++startTimes);
-        editor.commit();
+        editor.apply();
         //检查更新
 //        mUpdateManager = new UpdateManager(this);
 //        mUpdateManager.checkUpdateInfo();
         //获取组件
-        ballinfoButton = (Button) findViewById(R.id.ballinfo);
-        queryballinfoButton = (Button) findViewById(R.id.queryballinfo);
-        opendetButton = (Button) findViewById(R.id.opendet);
-        closedetButton = (Button) findViewById(R.id.closedet);
-        hisButton = (Button) findViewById(R.id.histroyButton);
-        balltelTextView = (TextView) findViewById(R.id.balltel);
-        ballposTextView = (TextView) findViewById(R.id.ballpos);
-        ballstateTextView = (TextView) findViewById(R.id.ballstate);
-        downnumberTextView = (TextView) findViewById(R.id.downnumbertext);
-        setdistanceTextView = (TextView) findViewById(R.id.setdistancetext);
+        ballinfoButton = findViewById(R.id.ballinfo);
+        queryballinfoButton = findViewById(R.id.queryballinfo);
+        opendetButton = findViewById(R.id.opendet);
+        closedetButton = findViewById(R.id.closedet);
+        hisButton = findViewById(R.id.histroyButton);
+        balltelTextView = findViewById(R.id.balltel);
+        ballposTextView =  findViewById(R.id.ballpos);
+        ballstateTextView = findViewById(R.id.ballstate);
+        downnumberTextView = findViewById(R.id.downnumbertext);
+        setdistanceTextView = findViewById(R.id.setdistancetext);
         final Intent sendIntent = new Intent(SEND_STATE_BROADCAST_INTENT);
         //打开历史查询界面
 //        hisButton.setOnClickListener(new OnClickListener()
@@ -127,6 +130,7 @@ public class MainActivity extends Activity {
 //                overridePendingTransition(R.anim.dync_in_from_right, R.anim.dync_out_to_left);
 //            }
 //        });
+
         //打开BallInfoActivity等待返回报警球状态数据
         ballinfoButton.setOnClickListener(new OnClickListener()
         {
@@ -186,7 +190,7 @@ public class MainActivity extends Activity {
         if (requestCode == 0 && resultCode == 0) {
             try {
                 //得到返回数据
-                chooseBall = (Ball) intent.getSerializableExtra("chooseball");
+                chooseBall = (Ball) intent.getSerializableExtra("chooseBall");
                 balltelString = chooseBall.getballtel();
                 ballposString = chooseBall.getballpos();
                 ballstateString = chooseBall.getballstate();
@@ -195,7 +199,7 @@ public class MainActivity extends Activity {
                 balltelTextView.setText(balltelString);
                 ballposTextView.setText(ballposString);
                 ballstateTextView.setText(ballstateString);
-                if (balldistanceString == "" || balldistanceString.length() == 0)
+                if (balldistanceString.isEmpty())
                     setdistanceTextView.setText(SET_DISTANCE);
                 else
                     setdistanceTextView.setText(AFTER_SET_DISTANCE + balldistanceString + METER);
@@ -308,10 +312,10 @@ public class MainActivity extends Activity {
                                 setdistanceTextView.setText(AFTER_SET_DISTANCE + setdistanceString + METER);
                             }
                             //将报警距离写入数据库
-//                            dbHelper = new DBOpenHelper(MainActivity.this, DB_NAME, OLD_VERSION);
-//                            ballInfoDb = new BallInfoDb();
-//                            ballInfoDb.ModifyBallInfo(OPERATION_SETDISTANCE, MainActivity.this, dbHelper, null, null, null, setdistanceString, balltelString);
-//                            dbHelper.close();
+                            dbHelper = new DBOpenHelper(MainActivity.this, DB_NAME, OLD_VERSION);
+                            ballInfoDb = new BallInfoDb();
+                            ballInfoDb.ModifyBallInfo(OPERATION_SETDISTANCE, MainActivity.this, dbHelper, null, null, null, setdistanceString, balltelString);
+                            dbHelper.close();
                         } else {
                             //输入入框无内容，更新界面信息，不发送短信
                             if (textView == downnumberTextView) {
@@ -497,7 +501,7 @@ public class MainActivity extends Activity {
                             }
                         }
                     }
-//                    dbHelper.close();
+                    dbHelper.close();
                 }
             }
         }
@@ -511,6 +515,7 @@ public class MainActivity extends Activity {
      * 确认选中的报警球在数据库中
      * 更新界面组件
      */
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onResume() {
         final String NOT_CHOOSE_YET = getString(R.string.notchoiceyet);
@@ -520,37 +525,38 @@ public class MainActivity extends Activity {
         final String AFTER_DOWN_NUMBER = getString(R.string.afterdownnumber);
         final String AFTER_SET_DISTANCE = getString(R.string.aftersetdistance);
 
-        balltelTextView = (TextView) findViewById(R.id.balltel);
-        ballposTextView = (TextView) findViewById(R.id.ballpos);
-        ballstateTextView = (TextView) findViewById(R.id.ballstate);
-        downnumberTextView = (TextView) findViewById(R.id.downnumbertext);
-        setdistanceTextView = (TextView) findViewById(R.id.setdistancetext);
+//        balltelTextView = findViewById(R.id.balltel);
+//        ballposTextView = findViewById(R.id.ballpos);
+//        ballstateTextView = findViewById(R.id.ballstate);
+//        downnumberTextView = findViewById(R.id.downnumbertext);
+//        setdistanceTextView = findViewById(R.id.setdistancetext);
         //启动MainActivity短信监听器和BallInfoActivity内部短信监听器
         sMonitor = new SMSMonitor();
         IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         filter.setPriority(600);
         registerReceiver(sMonitor, filter);
         //获取只能被本应用程序读写的SharedPreferences对象
-        preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+        preferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
+        String a = preferences.getString(BALLTEL_SHAREDPREFERENCES, NOT_CHOOSE_YET);
         //获取SharedPreferences中存储的报警球信息，后台手机号,显示在主界面上,如果获取的报警球信息无法在数据库中遍历到，显示未选择
-        balltelString = preferences.getString(BALLTEL_SHAREDPREFERENCES, NOT_CHOOSE_YET);
-        ballposString = preferences.getString(BALLPOS_SHAREDPREFERENCES, NOT_CHOOSE_YET);
-        ballstateString = preferences.getString(BALLSTATE_SHAREDPREFERENCES, NOT_CHOOSE_YET);
-        //遍历数据库，查找是否有对应报警球
+//        balltelString = preferences.getString(BALLTEL_SHAREDPREFERENCES, NOT_CHOOSE_YET);
+//        ballposString = preferences.getString(BALLPOS_SHAREDPREFERENCES, NOT_CHOOSE_YET);
+//        ballstateString = preferences.getString(BALLSTATE_SHAREDPREFERENCES, NOT_CHOOSE_YET);
+//        //遍历数据库，查找是否有对应报警球
 //        dbHelper = new DBOpenHelper(MainActivity.this, DB_NAME, OLD_VERSION);
 //        ballInfoDb = new BallInfoDb();
 //        String sqlString = "select * from ballinfo where balltel = '" + balltelString + "'";
-//        listItems = ballInfoDb.Query(dbHelper, sqlString);
+//        listItems = ballInfoDb.QueryTable(dbHelper,balltelString);
 //        if (listItems.isEmpty()) {
 //            balltelString = NOT_CHOOSE_YET;
 //            ballposString = NOT_CHOOSE_YET;
 //            ballstateString = NOT_CHOOSE_YET;
 //        }
 //        dbHelper.close();
-        balltelTextView.setText(balltelString);
-        ballposTextView.setText(ballposString);
-        ballstateTextView.setText(ballstateString);
+//        balltelTextView.setText(balltelString);
+//        ballposTextView.setText(ballposString);
+//        ballstateTextView.setText(ballstateString);
         //获取SharedPreferences中存储的后台号码和报警距离，根据内容显示
         downnumberString = preferences.getString(SERVERNUMBER_SHAREDPREFERENCES, "");
         setdistanceString = preferences.getString(BALLDISTANCE_SHAREDPREFERENCES, "");

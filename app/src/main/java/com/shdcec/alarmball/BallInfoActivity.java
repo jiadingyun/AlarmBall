@@ -36,7 +36,7 @@ public class BallInfoActivity extends Activity {
     final static int REQUEST_ADD_BALL_ACTIVITY = 0;
     final static int REQUEST_MODIFY_BALL_ACTIVITY = 1;
     final static int RESULT_ADDBALLACTIVITY = 0;
-    final static int RESULT_MODIFYBALLACTIVITY = 0;
+    final static int RESULT_ModifyBallACTIVITY = 0;
     final static String MENU_DETAIL = "详细信息";
     final static String EXTRA_BALLTEL = "extra_balltel";
     final static String EXTRA_BALLPOS = "extra_ballpos";
@@ -49,7 +49,7 @@ public class BallInfoActivity extends Activity {
     private DBOpenHelper dbHelper;
     private Ball chooseBall;
     private Ball insertBall;
-    private Ball modifyBall;
+    private Ball ModifyBall;
     private BallInfoDb ballInfoDb;
     private ArrayList<Map<String, String>> listItems;
     private SMSMonitor ballMonitor;
@@ -83,7 +83,7 @@ public class BallInfoActivity extends Activity {
         listItems = ballInfoDb.Query(dbHelper);
         //将显示结果下载在ListView上
         final SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.ballinfolist,
-                new String[]{"balltel", "ballpos", "ballstate", "balldistance"},
+                new String[]{"ballTel", "ballPos", "ballState", "ballDistance"},
                 new int[]{R.id.balltel, R.id.ballpos, R.id.ballstate, R.id.balldistance});
         ballinfoListView.setAdapter(adapter);
 		/*
@@ -119,16 +119,16 @@ public class BallInfoActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //获取ListView中对应的balltel，ballpos，ballstate，打包到Ball对象里
-                balltel = listItems.get(position).get("balltel");
-                ballpos = listItems.get(position).get("ballpos");
-                ballstate = listItems.get(position).get("ballstate");
-                balldistance = listItems.get(position).get("balldistance");
+                //获取ListView中对应的ballTel，ballPos，ballState，打包到Ball对象里
+                balltel = listItems.get(position).get("ballTel");
+                ballpos = listItems.get(position).get("ballPos");
+                ballstate = listItems.get(position).get("ballState");
+                balldistance = listItems.get(position).get("ballDistance");
                 chooseBall = new Ball(balltel, ballpos, ballstate, balldistance);
                 //使用Bundle将chooseBall信息传回MainActivity
-                Intent intent = getIntent();
+                Intent intent = new Intent();
                 Bundle dataBundle = new Bundle();
-                dataBundle.putSerializable("chooseball", chooseBall);
+                dataBundle.putSerializable("chooseBall", chooseBall);
                 intent.putExtras(dataBundle);
                 BallInfoActivity.this.setResult(0, intent);
                 finish();
@@ -142,10 +142,10 @@ public class BallInfoActivity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, final View view,
                                            int position, long id) {
-                balltel = listItems.get(position).get("balltel");
-                ballpos = listItems.get(position).get("ballpos");
-                ballstate = listItems.get(position).get("ballstate");
-                balldistance = listItems.get(position).get("balldistance");
+                balltel = listItems.get(position).get("ballTel");
+                ballpos = listItems.get(position).get("ballPos");
+                ballstate = listItems.get(position).get("ballState");
+                balldistance = listItems.get(position).get("ballDistance");
                 oldBallTel = balltel;
  				/*
  				 * 打开选择窗口
@@ -229,16 +229,16 @@ public class BallInfoActivity extends Activity {
         ballInfoDb = new BallInfoDb();
         listItems = ballInfoDb.Query(dbHelper);
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.ballinfolist,
-                new String[]{"balltel", "ballpos", "ballstate", "balldistance"},
+                new String[]{"ballTel", "ballPos", "ballState", "ballDistance"},
                 new int[]{R.id.balltel, R.id.ballpos, R.id.ballstate, R.id.balldistance});
         ballinfoListView.setAdapter(adapter);
     }
 
     /*
      * 插入或修改SQLite中报警球信息
-     * Modifyballinfo(操作类型, 布局文件, 选中时报警球手机号)
+     * ModifyBallinfo(操作类型, 布局文件, 选中时报警球手机号)
      */
-    private void Modifyball(String doString, String ballTel, String ballPos, String oldballtel) {
+    private void ModifyBall(String doString, String ballTel, String ballPos, String oldballtel) {
         final String TOAST_INPUT_INFO = getString(R.string.toastinputinfo);
         final String STATE_NORMAL = getString(R.string.ballstatenormal);
         //获取用户输入的报警球号码和报警球位置
@@ -256,11 +256,10 @@ public class BallInfoActivity extends Activity {
         //修改报警球信息
         if (doString == "Modify") {
             //把报警球信息加入到Ball对象
-            modifyBall = new Ball(ballTel, ballPos, null, null);
+            ModifyBall = new Ball(ballTel, ballPos, null, null);
             //比较后更新报警球信息
-            ballInfoDb.ModifyBallInfo(OPERATION_MANUAL, this, dbHelper, modifyBall.getballtel(), modifyBall.getballpos(), null, null, oldballtel);
+            ballInfoDb.ModifyBallInfo(OPERATION_MANUAL, this, dbHelper, ModifyBall.getballtel(), ModifyBall.getballpos(), null, null, oldballtel);
         }
-
     }
 
     /*
@@ -373,7 +372,7 @@ public class BallInfoActivity extends Activity {
                     ballPosString = data.getString(EXTRA_BALLPOS);
                     //插入报警球信息
                     doString = "Insert";
-                    Modifyball(doString, ballTelString, ballPosString, null);
+                    ModifyBall(doString, ballTelString, ballPosString, null);
                 } catch (Exception e) {
                 }
 
@@ -386,7 +385,7 @@ public class BallInfoActivity extends Activity {
                     ballPosString = data.getString(EXTRA_BALLPOS);
                     //修改报警球信息
                     doString = "Modify";
-                    Modifyball(doString, ballTelString, ballPosString, oldBallTel);
+                    ModifyBall(doString, ballTelString, ballPosString, oldBallTel);
                 } catch (Exception e) {
                     // TODO: handle exception
                 }

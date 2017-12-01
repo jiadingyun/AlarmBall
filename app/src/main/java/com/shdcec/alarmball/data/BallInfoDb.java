@@ -41,16 +41,32 @@ public class BallInfoDb {
      * @return ArrayList<Map<String, String>>
      */
     public ArrayList<Map<String, String>> Query(SQLiteOpenHelper dbHelper) {
-        Cursor cursor = dbHelper.getWritableDatabase().query("ballInfo", null,null,null,null,null,null);
+        Cursor cursor = dbHelper.getWritableDatabase().query("ballInfo",null,null,null,null,null,null);
         ArrayList<Map<String, String>> listItems = new ArrayList<Map<String, String>>();
         while (cursor.moveToNext()) {
             Map<String, String> listitem = new HashMap<String, String>();
-            listitem.put(BALL_TEL, cursor.getString(cursor.getColumnIndex("BALL_TEL")));
+            listitem.put(BALL_TEL, cursor.getString(cursor.getColumnIndex(BALL_TEL)));
             listitem.put(BALL_POS, cursor.getString(1));
             listitem.put(BALL_STATE, cursor.getString(2));
             listitem.put(BALL_DISTANCE, cursor.getString(3));
             listItems.add(listitem);
         }
+        return listItems;
+    }
+    public ArrayList<Map<String, String>> QueryTable(SQLiteOpenHelper dbHelper,String columns) {
+        Cursor cursor = dbHelper.getWritableDatabase().query("ballInfo",null,BALL_TEL+" = ?",new String[] {columns },null,null,null);
+        ArrayList<Map<String, String>> listItems = new ArrayList<Map<String, String>>();
+        if (cursor.moveToNext()){
+            do {//todo:可能没有必要重复判断
+                Map<String, String> listitem = new HashMap<String, String>();
+                listitem.put(BALL_TEL, cursor.getString(cursor.getColumnIndex(BALL_TEL)));
+                listitem.put(BALL_POS, cursor.getString(1));
+                listitem.put(BALL_STATE, cursor.getString(2));
+                listitem.put(BALL_DISTANCE, cursor.getString(3));
+                listItems.add(listitem);
+            }while (cursor.moveToNext());
+        }cursor.close();
+
         return listItems;
     }
 
@@ -75,19 +91,18 @@ public class BallInfoDb {
      */
     public void InsertBallInfo(Context context, SQLiteOpenHelper dbHelper,
                                String balltelString, String ballposString, String ballstateString) {
-//        final String BALL_EXIST = context.getString(R.string.ballexist);
-//        //遍历SQLite，查询该报警球号是否已在数据库中
-//        String sqlString = "select * from ballinfo where balltel = '" + balltelString + "'";
-//        final ArrayList<Map<String, String>> beforeinsertlistItems = Query(dbHelper, sqlString);
-//        //将报警球信息插入数据库
-//        if (beforeinsertlistItems.isEmpty()) {
-//            //将此报警球信息插入SQLite中
-//            Insert(dbHelper, balltelString, ballposString, ballstateString);
-//            Toast.makeText(context, INSERT_OK, Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(context, BALL_EXIST, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        final String BALL_EXIST = context.getString(R.string.ballexist);
+        //遍历SQLite，查询该报警球号是否已在数据库中
+        final ArrayList<Map<String, String>> beforeinsertlistItems = QueryTable(dbHelper,balltelString);
+        //将报警球信息插入数据库
+        if (beforeinsertlistItems.isEmpty()) {
+            //将此报警球信息插入SQLite中
+            Insert(dbHelper, balltelString, ballposString, ballstateString);
+            Toast.makeText(context, INSERT_OK, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, BALL_EXIST, Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     /**
@@ -120,13 +135,12 @@ public class BallInfoDb {
 
     /**
      * 向数据库插入报警球信息
-     *
-     * @param dbHelper SQLiteOpenHelper
+     *  @param dbHelper SQLiteOpenHelper
      * @param ballTel 报警球号码
      * @param ballPos 报警球位置,
      * @param ballState 报警球状态
      */
-    private void Insert(SQLiteOpenHelper dbHelper, String ballTel,String ballPos, String ballState) {
+    private void Insert(SQLiteOpenHelper dbHelper, String ballTel, String ballPos, String ballState) {
 
         ContentValues values = new ContentValues();
         //插入数据//新建报警球报警距离都为空
