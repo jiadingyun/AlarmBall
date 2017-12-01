@@ -571,7 +571,7 @@ public class MainActivity extends Activity {
         super.onResume();
     }
 
-    // 退出界面时，暂停短信监视器
+    // 退出界面时， 暂停短信监视器
     @Override
     protected void onPause() {
         unregisterReceiver(sMonitor);
