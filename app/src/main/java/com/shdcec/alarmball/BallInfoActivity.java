@@ -27,12 +27,12 @@ import com.shdcec.alarmball.ball.Ball;
 import com.shdcec.alarmball.data.BallInfoDb;
 import com.shdcec.alarmball.data.DBOpenHelper;
 import com.shdcec.alarmball.dialog.AddBallActivity;
+import com.shdcec.alarmball.dialog.ModifyBallActivity;
 
 
 public class BallInfoActivity extends Activity {
     final static String DB_NAME = "AlarmBall.db";
     final static int OLD_VERSION = 1;
-    final static String OPERATION_MANUAL = "manul";
     final static int REQUEST_ADD_BALL_ACTIVITY = 0;
     final static int REQUEST_MODIFY_BALL_ACTIVITY = 1;
     final static int RESULT_ADDBALLACTIVITY = 0;
@@ -40,12 +40,8 @@ public class BallInfoActivity extends Activity {
     final static String MENU_DETAIL = "详细信息";
     final static String EXTRA_BALLTEL = "extra_balltel";
     final static String EXTRA_BALLPOS = "extra_ballpos";
-    final static String BUNDLE_BALLTEL = "balltel";
-    final static String BUNDLE_BALLSTATE = "ballstate";
-    final static String BUNDLE_BALLDISTANCE = "balldistance";
-    final static String BUNDLE_BALLPOS = "ballpos";
 
-    private String balltel, ballpos, ballstate, balldistance;
+    private String ballTel, ballpos, ballstate, balldistance;
     private DBOpenHelper dbHelper;
     private Ball chooseBall;
     private Ball insertBall;
@@ -55,27 +51,21 @@ public class BallInfoActivity extends Activity {
     private SMSMonitor ballMonitor;
     private String oldBallTel;
 
-    ListView ballinfoListView;
+    ListView ballInfoListView;
     Button addBallButton, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-		 * /全屏
-		 */
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         setContentView(R.layout.ballinfo);
 		/*
 		 * 获取组件
 		 */
-        ballinfoListView = (ListView) findViewById(R.id.ballinfolist);
-        addBallButton = (Button) findViewById(R.id.addBallButton);
-        backButton = (Button) findViewById(R.id.backButton);
+        ballInfoListView =  findViewById(R.id.ballinfolist);
+        addBallButton =  findViewById(R.id.addBallButton);
+        backButton =  findViewById(R.id.backButton);
 		/*
-		 * /连接数据库，查找报警球信息
+		 * 连接数据库，查找报警球信息
 		 */
         dbHelper = new DBOpenHelper(this, DB_NAME, OLD_VERSION);
         //调用查询报警球工具类，返回查询结果
@@ -85,7 +75,7 @@ public class BallInfoActivity extends Activity {
         final SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.ballinfolist,
                 new String[]{"ballTel", "ballPos", "ballState", "ballDistance"},
                 new int[]{R.id.balltel, R.id.ballpos, R.id.ballstate, R.id.balldistance});
-        ballinfoListView.setAdapter(adapter);
+        ballInfoListView.setAdapter(adapter);
 		/*
 		 * 打开添加报警球界面
 		 */
@@ -115,16 +105,16 @@ public class BallInfoActivity extends Activity {
 		/*
 		 * 获取点击ListView信息，封装起来返回给MainActivity
 		 */
-        ballinfoListView.setOnItemClickListener(new OnItemClickListener() {
+        ballInfoListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 //获取ListView中对应的ballTel，ballPos，ballState，打包到Ball对象里
-                balltel = listItems.get(position).get("ballTel");
+                ballTel = listItems.get(position).get("ballTel");
                 ballpos = listItems.get(position).get("ballPos");
                 ballstate = listItems.get(position).get("ballState");
                 balldistance = listItems.get(position).get("ballDistance");
-                chooseBall = new Ball(balltel, ballpos, ballstate, balldistance);
+                chooseBall = new Ball(ballTel, ballpos, ballstate, balldistance);
                 //使用Bundle将chooseBall信息传回MainActivity
                 Intent intent = new Intent();
                 Bundle dataBundle = new Bundle();
@@ -132,21 +122,22 @@ public class BallInfoActivity extends Activity {
                 intent.putExtras(dataBundle);
                 BallInfoActivity.this.setResult(0, intent);
                 finish();
+                overridePendingTransition(R.anim.dync_in_from_left, R.anim.dync_out_to_right);
             }
         });
 		/*
 		 * 长按ListView某一项弹出选择 1,详细信息    2，修改    3，删除
 		 */
-        ballinfoListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+        ballInfoListView.setOnItemLongClickListener(new OnItemLongClickListener() {
             //String[] items = new String[] { MENU_MODIFY, MENU_DELETE };
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, final View view,
                                            int position, long id) {
-                balltel = listItems.get(position).get("ballTel");
+                ballTel = listItems.get(position).get("ballTel");
                 ballpos = listItems.get(position).get("ballPos");
                 ballstate = listItems.get(position).get("ballState");
                 balldistance = listItems.get(position).get("ballDistance");
-                oldBallTel = balltel;
+                oldBallTel = ballTel;
  				/*
  				 * 打开选择窗口
  				 */
@@ -166,18 +157,18 @@ public class BallInfoActivity extends Activity {
 
                     @Override
                     public void onClick(View v) {
-//						Intent intent = new Intent(BallInfoActivity.this, BallDetailActivity.class);
-//						//将选中报警球号码传给详细信息界面
-//						intent.putExtra(BUNDLE_BALLTEL, balltel);
-//						intent.putExtra(BUNDLE_BALLPOS, ballpos);
-//						intent.putExtra(BUNDLE_BALLSTATE, ballstate);
-//						intent.putExtra(BUNDLE_BALLDISTANCE, balldistance);
-//						//启动详细信息界面
-//						startActivity(intent);
-//						//动画
-//						overridePendingTransition(R.anim.dync_in_from_right, R.anim.dync_out_to_left);
-//						longAlertDialog.cancel();
-//						finish();
+						Intent intent = new Intent(BallInfoActivity.this, BallDetailActivity.class);
+						//将选中报警球号码传给详细信息界面
+						intent.putExtra(BallInfoDb.BALL_TEL, ballTel);
+						intent.putExtra(BallInfoDb.BALL_POS, ballpos);
+						intent.putExtra(BallInfoDb.BALL_DISTANCE, ballstate);
+						intent.putExtra(BallInfoDb.BALL_STATE, balldistance);
+						//启动详细信息界面
+						startActivity(intent);
+						//动画
+						overridePendingTransition(R.anim.dync_in_from_right, R.anim.dync_out_to_left);
+						longAlertDialog.cancel();
+						finish();
                     }
                 });
                 //弹出修改窗口
@@ -185,26 +176,24 @@ public class BallInfoActivity extends Activity {
                     @Override
                     public void onClick(View v) {
 //						//将原有报警球号码和位置传给弹出窗口，并启动
-//						Intent intent = new Intent(BallInfoActivity.this, ModifyBallActivity.class);
-//						intent.putExtra(EXTRA_BALLTEL, balltel);
-//						intent.putExtra(EXTRA_BALLPOS, ballpos);
-//						startActivityForResult(intent, REQUEST_MODIFY_BALL_ACTIVITY);
-//						longAlertDialog.cancel();
+						Intent intent = new Intent(BallInfoActivity.this, ModifyBallActivity.class);
+						intent.putExtra(EXTRA_BALLTEL, ballTel);
+						intent.putExtra(EXTRA_BALLPOS, ballpos);
+						startActivityForResult(intent, REQUEST_MODIFY_BALL_ACTIVITY);
+						longAlertDialog.cancel();
                     }
                 });
                 //删除报警球信息
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ballInfoDb.DeleteBallInfo(BallInfoActivity.this, dbHelper, balltel);
+                        ballInfoDb.DeleteBallInfo(BallInfoActivity.this, dbHelper, ballTel);
                         //刷新LIstView
-                        RefreshList();
+                        refreshBallList();
                         longAlertDialog.cancel();
                     }
                 });
-
                 return true;
-
             }
         });
     }
@@ -220,25 +209,27 @@ public class BallInfoActivity extends Activity {
         }
     }
 
-    /*
+    /**
      * 更新ListView内容,更新listItems
      */
-    private void RefreshList() {
-        ListView ballinfoListView = (ListView) findViewById(R.id.ballinfolist);
-//		String sqlString = "select * from ballinfo";
+    private void refreshBallList() {
+        ListView ballInfoListView = findViewById(R.id.ballinfolist);
         ballInfoDb = new BallInfoDb();
         listItems = ballInfoDb.Query(dbHelper);
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.ballinfolist,
                 new String[]{"ballTel", "ballPos", "ballState", "ballDistance"},
                 new int[]{R.id.balltel, R.id.ballpos, R.id.ballstate, R.id.balldistance});
-        ballinfoListView.setAdapter(adapter);
+        ballInfoListView.setAdapter(adapter);
     }
 
-    /*
+    /**
      * 插入或修改SQLite中报警球信息
-     * ModifyBallinfo(操作类型, 布局文件, 选中时报警球手机号)
+     * @param doString 操作类型(插入或修改)
+     * @param ballTel 报警球手机号
+     * @param ballPos 报警球配置
+     * @param oldBallTel
      */
-    private void ModifyBall(String doString, String ballTel, String ballPos, String oldballtel) {
+    private void modifyBall(String doString, String ballTel, String ballPos, String oldBallTel) {
         final String TOAST_INPUT_INFO = getString(R.string.toastinputinfo);
         final String STATE_NORMAL = getString(R.string.ballstatenormal);
         //获取用户输入的报警球号码和报警球位置
@@ -251,18 +242,19 @@ public class BallInfoActivity extends Activity {
             //把报警球信息加入到Ball对象
             insertBall = new Ball(ballTel, ballPos, STATE_NORMAL, null);
             //比较后插入报警球信息
-            ballInfoDb.InsertBallInfo(this, dbHelper, insertBall.getballtel(), insertBall.getballpos(), insertBall.getballstate());
+            ballInfoDb.InsertBallInfo(this, dbHelper, insertBall.getBallTel(), insertBall.getBallPos(), insertBall.getBallState());
         }
         //修改报警球信息
         if (doString == "Modify") {
             //把报警球信息加入到Ball对象
             ModifyBall = new Ball(ballTel, ballPos, null, null);
             //比较后更新报警球信息
-            ballInfoDb.ModifyBallInfo(OPERATION_MANUAL, this, dbHelper, ModifyBall.getballtel(), ModifyBall.getballpos(), null, null, oldballtel);
+            ballInfoDb.modifyBallInfo(BallInfoDb.OPERATION_FROM_APP, this, dbHelper,
+                    ModifyBall.getBallTel(), ModifyBall.getBallPos(), null, null, oldBallTel);
         }
     }
 
-    /*
+    /**
      * 内部类，监听接收BallInfoService发出的广播
      * 如果是报警球发来的带有报警球信息的短信，更新报警球列表信息
      */
@@ -283,7 +275,6 @@ public class BallInfoActivity extends Activity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //System.out.println("ballinfo monitor start");
             //判断是否是接收短信激活的服务
             if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
                 //接收由SMS传过来的数据
@@ -306,14 +297,13 @@ public class BallInfoActivity extends Activity {
                     }
                     //如果发送方号码为14位，表示收到的号码前有+86前缀，取后11位为发送号码
                     if (ballTel.length() == 14) {
-                        char[] balltel = ballTel.toCharArray();
-                        ballTel = new String(balltel, 3, 11);
+                        char[] ballTelCar = ballTel.toCharArray();
+                        ballTel = new String(ballTelCar, 3, 11);
                     }
                     //遍历数据库，确认发送方号码为报警球号码
                     dbHelper = new DBOpenHelper(context, DB_NAME, OLD_VERSION);
                     ballInfoDb = new BallInfoDb();
-                    String sqlString = "select * from ballinfo where balltel = '" + ballTel + "'";
-                    ballArrayList = ballInfoDb.Query(dbHelper);
+                    ballArrayList = ballInfoDb.QueryColumns(dbHelper,BallInfoDb.BALL_TEL,ballTel);
                     //确认是报警球号码所发，并且带有报警球信息
                     if (ballArrayList.isEmpty()) {
                     } else {
@@ -321,7 +311,7 @@ public class BallInfoActivity extends Activity {
                         char[] firstsms = smsText.toCharArray();
                         String firString = new String(firstsms, 0, 1);
                         if (smsText.length() == 33 && firString.equalsIgnoreCase("B")) {
-                            RefreshList();
+                            refreshBallList();
                         }
                     }
                     dbHelper.close();
@@ -336,8 +326,7 @@ public class BallInfoActivity extends Activity {
      */
     @Override
     protected void onResume() {
-        //System.out.println("ballinfo monitor in");
-
+        //TODO:可以选择静态监听
         ballMonitor = new SMSMonitor();
         IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         filter.setPriority(700);
@@ -372,10 +361,9 @@ public class BallInfoActivity extends Activity {
                     ballPosString = data.getString(EXTRA_BALLPOS);
                     //插入报警球信息
                     doString = "Insert";
-                    ModifyBall(doString, ballTelString, ballPosString, null);
+                    modifyBall(doString, ballTelString, ballPosString, null);
                 } catch (Exception e) {
                 }
-
                 break;
             case REQUEST_MODIFY_BALL_ACTIVITY:
                 try {
@@ -385,15 +373,15 @@ public class BallInfoActivity extends Activity {
                     ballPosString = data.getString(EXTRA_BALLPOS);
                     //修改报警球信息
                     doString = "Modify";
-                    ModifyBall(doString, ballTelString, ballPosString, oldBallTel);
+                    modifyBall(doString, ballTelString, ballPosString, oldBallTel);
+                    // TODO: 是否可以不用这里
                 } catch (Exception e) {
-                    // TODO: handle exception
-                }
 
+                }
                 break;
         }
         //刷新LIstView
-        RefreshList();
+        refreshBallList();
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, intent);
 

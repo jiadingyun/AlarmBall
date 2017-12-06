@@ -183,7 +183,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/downnumber_change"
                         android:stateListAnimator="@null"
-                        android:onClick="downnumber" />
+                        android:onClick="downNumber" />
 
                     <TextView
                         android:id="@+id/downnumbertext"
@@ -216,7 +216,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/setdistance_change"
                         android:stateListAnimator="@null"
-                        android:onClick="setdistance" />
+                        android:onClick="setDistance" />
 
                     <TextView
                         android:id="@+id/setdistancetext"

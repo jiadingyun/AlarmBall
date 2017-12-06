@@ -28,9 +28,9 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        sp = getSharedPreferences("count", Context.MODE_PRIVATE);
-        count = sp.getInt("count", 0);
-        textView = (TextView) findViewById(R.id.textView_login);
+        sp = getSharedPreferences("startTimes", Context.MODE_PRIVATE);
+        count = sp.getInt("startTimes", 0);
+        textView = findViewById(R.id.textView_login);
         s = "第：" + count + "次启动";
         textView.setText(s);
 
@@ -40,7 +40,7 @@ public class LaunchActivity extends AppCompatActivity {
             time = 3000;
             //写入启动次数
             editor = sp.edit();
-            editor.putInt("count", ++count);
+            editor.putInt("startTimes", ++count);
             editor.apply();
         }
         new Handler().postDelayed(new Runnable() {
@@ -85,19 +85,18 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private long exitTime = 0;
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 //            if ((System.currentTimeMillis() - exitTime) > 2000) {
-//                Toast.makeText(LaunchActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//                UtilToast.makeText(LaunchActivity.this, "再按一次退出程序", UtilToast.LENGTH_SHORT).show();
 //                exitTime = System.currentTimeMillis();
 //            } else {
             finish();
             //由于打开MainActivity是在子线程中已经执行，所以这里如果不退出程序的话，finish本活动后，主线程还会让MainActivity启动
-            System.exit(0);
-            //如果推出程序的话，会有卡顿。并且退出程序就不能执行后台
-            stopThread = true;
+//            System.exit(0);
+//            //如果推出程序的话，会有卡顿。并且退出程序就不能执行后台
+//            stopThread = true;
 //            }
             return true;
         }

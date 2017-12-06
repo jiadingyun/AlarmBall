@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <FrameLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/candygreen">
+    	<Button 
+    		android:id="@+id/backButton"
+    		android:layout_width="40dp"
+    		android:layout_height="40dp"
+    		android:layout_gravity="center_vertical"
+    		android:layout_marginLeft="5dp"
+    		android:background="@drawable/backward_change"/>
+    	<TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="@string/histroy" />
+	</FrameLayout>
+<TabHost
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp" 
+    android:layout_weight="1">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/candygreen">
+        <TabWidget 
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+        <FrameLayout 
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent" >
+        	<HorizontalScrollView
+    		    android:id="@+id/alarmsmslinear"
+   	 			android:layout_width="match_parent"
+        		android:layout_height="match_parent">
+        		<LinearLayout
+        		    android:layout_width="wrap_content"
+   	 				android:layout_height="fill_parent"
+    				android:orientation="vertical" >
+    				<LinearLayout
+    				    android:layout_width="wrap_content"
+   	 					android:layout_height="wrap_content"
+    					android:orientation="horizontal" 
+    					android:background="@color/beige">
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receivetime"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receiveballpos"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/alarmtext"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" /> 
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receivenum"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 				</LinearLayout>
+        			<ListView
+        	    		android:id="@+id/alarmsmslist"
+        	    		android:layout_width="wrap_content"
+        				android:layout_height="wrap_content" />
+        			
+        		</LinearLayout>
+
+        	</HorizontalScrollView>
+        	<HorizontalScrollView
+    		    android:id="@+id/receivesmslinear"
+   	 			android:layout_width="match_parent"
+        		android:layout_height="fill_parent">
+        		<LinearLayout
+        		    android:layout_width="wrap_content"
+   	 				android:layout_height="wrap_content"
+    				android:orientation="vertical" >
+    				<LinearLayout
+    				    android:layout_width="wrap_content"
+   	 					android:layout_height="wrap_content"
+    					android:orientation="horizontal" 
+    					android:background="@color/beige">
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receivetime"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receiveballpos"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receivetext"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" /> 
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/receivenum"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 				</LinearLayout>
+        			<ListView 
+        	    		android:id="@+id/receivesmslist"
+        	    		android:layout_width="wrap_content"
+        				android:layout_height="match_parent" />
+        		</LinearLayout>
+        	</HorizontalScrollView>
+        	<HorizontalScrollView
+    		    android:id="@+id/sendsmslinear"
+   	 			android:layout_width="match_parent"
+        		android:layout_height="fill_parent">
+        		<LinearLayout
+        		    android:layout_width="wrap_content"
+   	 				android:layout_height="wrap_content"
+    				android:orientation="vertical" >
+    				<LinearLayout
+    				    android:layout_width="wrap_content"
+   	 					android:layout_height="wrap_content"
+    					android:orientation="horizontal" 
+    					android:background="@color/beige">
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/sendtime"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+    					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/sendballpos"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/sendtext"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" /> 
+   	 					<TextView
+    	    				android:layout_width="110dp"
+   	 						android:layout_height="fill_parent"
+   	 						android:layout_weight="1"
+   	 						android:text="@string/sendnum"
+   	 						android:textSize="13sp"
+   	 						android:gravity="center" />
+   	 				</LinearLayout>
+        			<ListView 
+        	    		android:id="@+id/sendsmslist"
+        	    		android:layout_width="wrap_content"
+        				android:layout_height="match_parent" />
+        		</LinearLayout>
+        	</HorizontalScrollView>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/candyblue">
+    <TextView 
+        android:id="@+id/StartDateText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:text="@string/startdate"/>
+    <TextView 
+        android:id="@+id/EndDateText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:text="@string/enddate"/>
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:divider="@color/gray"
+   	android:dividerHeight="3dp"
+   	android:background="@color/candygreen">
+    <Button 
+        android:id="@+id/StartDateButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/white"
+        android:background="@drawable/candygreen_button_change"
+        android:layout_weight="1"/>
+    <View  
+    	android:layout_width="5dp"  
+    	android:layout_height="fill_parent"  
+    	android:background="@color/candyblue"  
+	/>  
+    <Button 
+        android:id="@+id/EndDateButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/white"
+        android:background="@drawable/candygreen_button_change"
+        android:layout_weight="1"/>
+</LinearLayout>
+</LinearLayout>
+

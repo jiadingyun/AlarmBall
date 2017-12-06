@@ -12,7 +12,7 @@ public class DBOpenHelper extends SQLiteOpenHelper
 	// 创建数据库ballInfo存储报警球号码，位置，状态信息
 	final String CREATE_BALL_SQL = "create table ballInfo(ballTel, ballPos, ballState, ballDistance)";
 	// 创建数据库smsInfo存储发送号码，接收号码，短信内容，短信类型
-	final String CREATE_SMS_SQL = "create table smsInfo(time, pos, fromnum, tonum, smstext, smsclass)";
+	final String CREATE_SMS_SQL = "create table smsInfo(time, pos, fromNum, toNum, smsText, smsType)";
 	public DBOpenHelper(Context context, String name,int version)
 	{
 		super(context, name, null, version);
